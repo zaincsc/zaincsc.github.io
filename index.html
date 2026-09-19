@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZAIN CSC</title>
+<style>
+body{margin:0;font-family:Arial;background:#f5f7fa;color:#123}
+header{background:#063b6d;color:white;padding:18px;text-align:center}
+nav{margin-top:10px}nav a{color:white;margin:8px;text-decoration:none}
+.hero{text-align:center;background:white;padding:45px 15px}
+h1{color:#063b6d}.btn{background:#087f5b;color:white;border:0;padding:12px 22px;border-radius:5px}
+section{padding:30px 15px;max-width:1000px;margin:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.card,.box{background:white;padding:18px;border:1px solid #ddd;border-radius:7px}
+.card{cursor:pointer}.card:hover{border-color:#087f5b}
+input,select{width:100%;padding:11px;margin:6px 0 15px;box-sizing:border-box}
+.price{background:#eaf7f1;padding:15px;margin:15px 0;font-weight:bold}
+.qr{width:200px;display:block;margin:15px auto}
+footer{background:#063b6d;color:white;text-align:center;padding:25px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>ZAIN CSC</h2>
+<small>Common Service Center</small>
+<nav>
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#apply">Apply</a>
+<a href="#track">Track</a>
+</nav>
+</header>
+
+<div class="hero" id="home">
+<h1>Digital Services at One Place</h1>
+<p>Apply Online • Upload Documents • Pay by QR • Track Application</p>
+<a href="#services"><button class="btn">View Services</button></a>
+</div>
+
+<section id="services">
+<h2>Our Services</h2>
+<div class="grid">
+<div class="card" onclick="s('PAN Card')">PAN Card</div>
+<div class="card" onclick="s('Passport')">Passport</div>
+<div class="card" onclick="s('NCL Certificate')">NCL Certificate</div>
+<div class="card" onclick="s('PRC Certificate')">PRC Certificate</div>
+<div class="card" onclick="s('Caste Certificate')">Caste Certificate</div>
+<div class="card" onclick="s('Income Certificate')">Income Certificate</div>
+<div class="card" onclick="s('Udyam Registration')">Udyam Registration</div>
+<div class="card" onclick="s('Police Verification')">Police Verification</div>
+<div class="card" onclick="s('Online Admission')">Online Admission</div>
+<div class="card" onclick="s('Digital Life Certificate')">Digital Life Certificate</div>
+</div>
+</section>
+
+<section id="apply">
+<h2>Apply for Service</h2>
+<div class="box">
+
+<label>Service</label>
+<select id="service">
+<option>Select Service</option>
+<option>PAN Card</option>
+<option>Passport</option>
+<option>NCL Certificate</option>
+<option>PRC Certificate</option>
+<option>Caste Certificate</option>
+<option>Income Certificate</option>
+<option>Udyam Registration</option>
+<option>Police Verification</option>
+<option>Online Admission</option>
+<option>Digital Life Certificate</option>
+</select>
+
+<label>Name</label>
+<input id="name" placeholder="Full Name">
+
+<label>Mobile</label>
+<input id="mobile" placeholder="Mobile Number">
+
+<label>Processing</label>
+<select id="type" onchange="price()">
+<option value="199">Normal - ₹199</option>
+<option value="299">Urgent - ₹299</option>
+<option value="399">Express - ₹399</option>
+</select>
+
+<label>Upload Documents</label>
+<input type="file" multiple>
+
+<div class="price">Total: ₹<span id="amount">199</span></div>
+
+<h3>Pay by Merchant QR</h3>
+<img src="merchant-qr.png" class="qr">
+<p>Scan QR and pay the exact amount.</p>
+
+<label>UTR / Transaction ID</label>
+<input id="utr" placeholder="Enter UTR">
+
+<button class="btn" onclick="submitApp()">Submit Application</button>
+
+</div>
+</section>
+
+<section id="track">
+<h2>Track Application</h2>
+<div class="box">
+<input id="trackid" placeholder="Application Number">
+<button class="btn" onclick="track()">Track</button>
+<p id="result"></p>
+</div>
+</section>
+
+<footer>
+<b>ZAIN CSC</b><br>
+Common Service Center<br><br>
+Digital Services & Online Assistance
+</footer>
+
+<script>
+function s(x){
+document.getElementById("service").value=x;
+location="#apply";
+}
+function price(){
+amount.innerText=type.value;
+}
+function submitApp(){
+if(!name.value||!mobile.value||!utr.value){
+alert("Please fill all required details");return;
+}
+let id="ZCSC-"+Date.now();
+localStorage.setItem("app",id);
+alert("Application Submitted!\nApplication ID: "+id);
+}
+function track(){
+result.innerText=trackid.value==localStorage.getItem("app")
+?"Application Received - Payment Verification Pending"
+:"Application not found";
+}
+</script>
+
+</body>
+</html>
